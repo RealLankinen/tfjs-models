@@ -1,139 +1,114 @@
-# Pre-trained TensorFlow.js models
+# MediaPipe Handpose
+Note: this model can only detect a maximum of one hand in the input - multi-hand detection is coming in a future release.
 
-This repository hosts a set of pre-trained models that have been ported to
-TensorFlow.js.
+MediaPipe Handpose is a lightweight ML pipeline consisting of two models: A palm detector and a hand-skeleton finger tracking model. It predicts 21 3D hand keypoints per detected hand. For more details, please read our Google AI [blogpost](https://ai.googleblog.com/2019/08/on-device-real-time-hand-tracking-with.html).
 
-The models are hosted on NPM and unpkg so they can be used in any project out of the box. They can be used directly or used in a transfer learning
-setting with TensorFlow.js.
+<img src="demo/demo.gif" alt="demo" style="width:640px" />
 
-To find out about APIs for models, look at the README in each of the respective
-directories. In general, we try to hide tensors so the API can be used by
-non-machine learning experts.
+Given an input, the model predicts whether it contains a hand. If so, the model returns coordinates for the bounding box around the hand, as well as 21 keypoints within the hand, outlining the location of each finger joint and the palm.
 
-For those interested in contributing a model, please file a [GitHub issue on tfjs](https://github.com/tensorflow/tfjs/issues) to gauge
-interest. We are trying to add models that complement the existing set of models
-and can be used as building blocks in other apps.
+More background information about the model, as well as its performance characteristics on different datasets, can be found here: [https://drive.google.com/file/d/1sv4sSb9BSNVZhLzxXJ0jBv9DqD-4jnAz/view](https://drive.google.com/file/d/1sv4sSb9BSNVZhLzxXJ0jBv9DqD-4jnAz/view)
 
-## Models
+Check out our [demo](https://storage.googleapis.com/tfjs-models/demos/handpose/index.html), which uses the model to detect hand landmarks in a live video stream.
 
-<table style="max-width:100%;table-layout:auto;">
-  <tr style="text-align:center;">
-    <th>Type</th>
-    <th>Model</th>
-    <th>Demo</th>
-    <th>Details</th>
-    <th>Install</th>
-  </tr>
-  <!-- Images -->
-  <!-- ** MobileNet -->
-  <tr>
-    <td rowspan="10"><b>Images</b></td>
-    <td rowspan="2"><b><a style="white-space:nowrap; display:inline-block;" href="./mobilenet"><div style='vertical-align:middle; display:inline;'>MobileNet</div></a></b></td>
-    <td><a href=""></a></td>
-    <td rowspan="2">Classify images with labels from the <a href="http://www.image-net.org/">ImageNet database</a>.</td>
-    <td rowspan="2"><code>npm i @tensorflow-models/mobilenet</code></td>
-  </tr>
-  <tr>
-    <td><a href="./mobilenet/demo/index.html">source</a></td>
-  </tr>
-  <!-- ** PoseNet -->
-  <tr>
-    <td rowspan="2"><b><a style="white-space:nowrap; display:inline-block;" href="./posenet"><div style='vertical-align:middle; display:inline;'>PoseNet</div></a></b></td>
-    <td><a href="https://storage.googleapis.com/tfjs-models/demos/posenet/camera.html">live</a></td>
-    <td rowspan="2">A machine learning model which allows for real-time human pose estimation in the browser. See a detailed description <a href="https://medium.com/tensorflow/real-time-human-pose-estimation-in-the-browser-with-tensorflow-js-7dd0bc881cd5">here</a>.</td>
-    <td rowspan="2"><code>npm i @tensorflow-models/posenet</code></td>
-  </tr>
-  <tr>
-    <td><a href="./posenet/demos/camera.html">source</a></td>
-  </tr>
-  <!-- ** Coco SSD -->
-  <tr>
-    <td rowspan="2"><b><a style="white-space:nowrap; display:inline-block;" href="./coco-ssd"><div style='vertical-align:middle; display:inline;'>Coco SSD</div></a></b></td>
-    <td><a href=""></a></td>
-    <td rowspan="2">Object detection model that aims to localize and identify multiple objects in a single image. Based on the <a href="https://github.com/tensorflow/models/blob/master/research/object_detection/README.md">TensorFlow object detection API</a>.</td>
-    <td rowspan="2"><code>npm i @tensorflow-models/coco-ssd</code></td>
-  </tr>
-  <tr>
-    <td><a href="./coco-ssd/demo">source</a></td>
-  </tr>
-  <!-- ** BodyPix -->
-  <tr>
-    <td rowspan="2"><b><a style="white-space:nowrap; display:inline-block;" href="./body-pix"><div style='vertical-align:middle; display:inline;'>BodyPix</div></a></b></td>
-    <td><a href="https://storage.googleapis.com/tfjs-models/demos/body-pix/index.html">live</a></td>
-    <td rowspan="2">Real-time person and body part segmentation in the browser using TensorFlow.js.</td>
-    <td rowspan="2"><code>npm i @tensorflow-models/body-pix</code></td>
-  </tr>
-  <tr>
-    <td><a href="./body-pix/demos/index.html">source</a></td>
-  </tr>
-    <!-- ** DeepLab -->
-  <tr>
-    <td rowspan="2"><b><a style="white-space:nowrap; display:inline-block;" href="./deeplab"><div style='vertical-align:middle; display:inline;'>DeepLab v3</div></a></b></td>
-    <td><a href=""></a></td>
-    <td rowspan="2">Semantic segmentation</td>
-    <td rowspan="2"><code>npm i @tensorflow-models/deeplab</code></td>
-  </tr>
-  <tr>
-    <td><a href="./deeplab/demo/index.html">source</a></td>
-  </tr>
-  <!-- * Audio -->
-  <!-- ** Speech Commands -->
-  <tr>
-    <td rowspan="2"><b>Audio</b></td>
-    <td rowspan="2"><b><a style="white-space:nowrap; display:inline-block;" href="./speech-commands"><div style='vertical-align:middle; display:inline;'>Speech Commands</div></a></b></td>
-    <td><a href="https://storage.googleapis.com/tfjs-speech-model-test/2019-01-03a/dist/index.html">live</a></td>
-    <td rowspan="2">Classify 1 second audio snippets from the <a href="https://www.tensorflow.org/tutorials/sequences/audio_recognition">speech commands dataset</a>.</td>
-    <td rowspan="2"><code>npm i @tensorflow-models/speech-commands</code></td>
-  </tr>
-  <tr>
-    <td><a href="./speech-commands/demo/index.html">source</a></td>
-  </tr>
-  <!-- * Text -->
-  <!-- ** Universal Sentence Encoder -->
-  <tr>
-    <td rowspan="4"><b>Text</b></td>
-    <td rowspan="2"><b><a style="white-space:nowrap; display:inline-block;" href="./universal-sentence-encoder"><div style='vertical-align:middle; display:inline;'>Universal Sentence Encoder</div></a></b></td>
-    <td><a href=""></a></td>
-    <td rowspan="2">Encode text into a 512-dimensional embedding to be used as inputs to natural language processing tasks such as sentiment classification and textual similarity.</td>
-    <td rowspan="2"><code>npm i @tensorflow-models/universal-sentence-encoder</code></td>
-  </tr>
-  <tr>
-    <td><a href="./universal-sentence-encoder/demo">source</a></td>
-  </tr>
-  <!-- ** Text Toxicity -->
-  <tr>
-    <td rowspan="2"><b><a style="white-space:nowrap; display:inline-block;" href="./toxicity"><div style='vertical-align:middle; display:inline;'>Text Toxicity</div></a></b></td>
-    <td><a href="https://storage.googleapis.com/tfjs-models/demos/toxicity/index.html">live</a></td>
-    <td rowspan="2">Score the perceived impact a comment might have on a conversation, from "Very toxic" to "Very healthy".</td>
-    <td rowspan="2"><code>npm i @tensorflow-models/toxicity</code></td>
-  </tr>
-  <tr>
-    <td><a href="./toxicity/demo/index.html">source</a></td>
-  </tr>
-  <!-- * General Utilities -->
-  <tr>
-    <td rowspan="2"><b>General Utilities</b></td>
-  <!-- ** KNN Classifier -->
-    <td rowspan="2"><b><a style="white-space:nowrap; display:inline-block;" href="./knn-classifier"><div style='vertical-align:middle; display:inline;'>KNN Classifier</div></a></b></td>
-    <td><a href=""></a></td>
-    <td rowspan="2">This package provides a utility for creating a classifier using the K-Nearest Neighbors algorithm. Can be used for transfer learning.</td>
-    <td rowspan="2"><code>npm i @tensorflow-models/knn-classifier</code></td>
-  </tr>
-  <tr>
-    <td><a href="./knn-classifier/demo">source</a></td>
-  </tr>
-</table>
+This model is also available as part of [MediaPipe](https://hand.mediapipe.dev/), a framework for building multimodal applied ML pipelines.
 
-## Development
+# Performance
 
-You can run the unit tests for any of the models by running the following
-inside a directory:
+MediaPipe Handpose consists of ~12MB of weights, and is well-suited for real time inference across a variety of devices (40 FPS on a 2018 MacBook Pro, 35 FPS on an iPhone11, 6 FPS on a Pixel3).
 
-`yarn test`
+## Installation
 
-New models should have a test NPM script (see [this](./mobilenet/package.json) `package.json` and `run_tests.ts` [helper](./mobilenet/run_tests.ts) for reference).
+Using `yarn`:
 
-To run all of the tests, you can run the following command from the root of this
-repo:
+    $ yarn add @tensorflow-models/handpose
 
-`yarn presubmit`
+Using `npm`:
+
+    $ npm install @tensorflow-models/handpose
+
+Note that this package specifies `@tensorflow/tfjs-core` and `@tensorflow/tfjs-converter` as peer dependencies, so they will also need to be installed.
+
+## Usage
+
+To import in npm:
+
+```js
+const handpose = require('@tensorflow-models/handpose');
+```
+
+or as a standalone script tag:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/handpose"></script>
+```
+
+Then:
+
+```js
+async function main() {
+  // Load the MediaPipe handpose model.
+  const model = await handpose.load();
+  // Pass in a video stream (or an image, canvas, or 3D tensor) to obtain a
+  // hand prediction from the MediaPipe graph.
+  const predictions = await model.estimateHands(document.querySelector("video"));
+  if (predictions.length > 0) {
+    /*
+    `predictions` is an array of objects describing each detected hand, for example:
+    [
+      {
+        handInViewConfidence: 1, // The probability of a hand being present.
+        boundingBox: { // The bounding box surrounding the hand.
+          topLeft: [162.91, -17.42],
+          bottomRight: [548.56, 368.23],
+        },
+        landmarks: [ // The 3D coordinates of each hand landmark.
+          [472.52, 298.59, 0.00],
+          [412.80, 315.64, -6.18],
+          ...
+        ],
+        annotations: { // Semantic groupings of the `landmarks` coordinates.
+          thumb: [
+            [412.80, 315.64, -6.18]
+            [350.02, 298.38, -7.14],
+            ...
+          ],
+          ...
+        }
+      }
+    ]
+    */
+
+    for (let i = 0; i < predictions.length; i++) {
+      const keypoints = predictions[i].landmarks;
+
+      // Log hand keypoints.
+      for (let i = 0; i < keypoints.length; i++) {
+        const [x, y, z] = keypoints[i];
+        console.log(`Keypoint ${i}: [${x}, ${y}, ${z}]`);
+      }
+    }
+  }
+}
+main();
+```
+
+#### Parameters for handpose.load()
+
+`handpose.load()` takes a configuration object with the following properties:
+
+* **maxContinuousChecks** - How many frames to go without running the bounding box detector. Defaults to infinity. Set to a lower value if you want a safety net in case the mesh detector produces consistently flawed predictions.
+
+* **detectionConfidence** - Threshold for discarding a prediction. Defaults to 0.8.
+
+* **iouThreshold** - A float representing the threshold for deciding whether boxes overlap too much in non-maximum suppression. Must be between [0, 1]. Defaults to 0.3.
+
+* **scoreThreshold** - A threshold for deciding when to remove boxes based on score in non-maximum suppression. Defaults to 0.75.
+
+#### Parameters for handpose.estimateHands()
+
+* **input** - The image to classify. Can be a tensor, DOM element image, video, or canvas.
+
+* **flipHorizontal** - Whether to flip/mirror the facial keypoints horizontally. Should be true for videos that are flipped by default (e.g. webcams).
